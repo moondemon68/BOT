@@ -34,6 +34,69 @@ public class Bot {
     public String run() {
         String command = "";
 
+        // If our energy tower is less than 6, then build it from the back.
+        int numberOfEnergyBuilding = 0;
+        int availableRowToPlaceEnergy = -1;
+        for (int i = 0; i < gameState.gameDetails.mapHeight; i++) {
+            int currentRowEnergy = getAllBuildingsForPlayer(PlayerType.A, b -> b.buildingType == BuildingType.ENERGY, i).size();
+            numberOfEnergyBuilding += currentRowEnergy;
+            if (currentRowEnergy == 0) {
+                availableRowToPlaceEnergy = i;
+            }
+        }
+        if (numberOfEnergyBuilding < 6 && availableRowToPlaceEnergy != -1) {
+          if (canAffordBuilding(BuildingType.ENERGY)) command = placeBuildingInRowFromBack(BuildingType.ENERGY, availableRowToPlaceEnergy);
+        }
+
+        // If our energy tower is greater or equal than 6 than buld a defense building, build it in front and also prioritize a row
+        // that has an attack going on.
+        if (numberOfEnergyBuilding >= 6) {
+          int availableRowToPlaceDefense = -1;
+          for (int i = 0; i < gameState.gameDetails.mapHeight; i++) {
+              int enemyAttackOnRow = getAllBuildingsForPlayer(PlayerType.B, b -> b.buildingType == BuildingType.ATTACK, i).size();
+              int myDefenseOnRow = getAllBuildingsForPlayer(PlayerType.A, b -> b.buildingType == BuildingType.DEFENSE, i).size();
+
+              if (enemyAttackOnRow > 0 && myDefenseOnRow == 0) {
+                  if (canAffordBuilding(BuildingType.DEFENSE))
+                      command = placeBuildingInRowFromFront(BuildingType.DEFENSE, i);
+                  else
+                      command = "";
+                  break;
+              } else if (myDefenseOnRow == 0) {
+                availableRowToPlaceDefense = i;
+              }
+          }
+          if (command.equals("") && availableRowToPlaceDefense != -1) {
+            if (canAffordBuilding(BuildingType.DEFENSE))
+                command = placeBuildingInRowFromFront(BuildingType.DEFENSE, availableRowToPlaceDefense);
+          }
+        }
+
+        // If our energy is greater than or equal to 150 and our energy buliding is greater than or equal to 6
+        // than use an iron curtain
+        int ourCurrentEnergy = getEnergy(PlayerType.A);
+        if (ourCurrentEnergy >= 150 && numberOfEnergyBuilding >= 6) {
+          command = buildCommand(7, 7, BuildingType.IRON_CURTAIN);
+        }
+
+        // If enemy's energy is lower than 20 than attack the enemy, prioritize a row which doesn't have
+        // a defense building on the enemy's side
+        int availableRowToPlaceAttack = -1;
+        for (int i = 0; i < gameState.gameDetails.mapHeight; i++) {
+          int enemyDefenseRow = getAllBuildingsForPlayer(PlayerType.B, b -> b.buildingType == BuildingType.DEFENSE, i).size();
+          int ourAttackOnRow = getAllBuildingsForPlayer(PlayerType.B, b -> b.buildingType == BuildingType.ATTACK, i).size();
+          if (enemyDefenseRow == 0 && ourAttackOnRow == 0) {
+            if (canAffordBuilding(BuildingType.ATTACK))
+              command = placeBuildingInRowFromSixthRow(BuildingType.ATTACK, i);
+          } else if (ourAttackOnRow == 0) {
+            availableRowToPlaceAttack = i;
+          }
+        }
+        if (command.equals("") && availableRowToPlaceAttack != -1) {
+          if (canAffordBuilding(BuildingType.ATTACK))
+            command = placeBuildingInRowFromSixthRow(BuildingType.ATTACK, availableRowToPlaceAttack);
+        }
+
         //If the enemy has an attack building and I don't have a blocking wall, then block from the front.
         for (int i = 0; i < gameState.gameDetails.mapHeight; i++) {
             int enemyAttackOnRow = getAllBuildingsForPlayer(PlayerType.B, b -> b.buildingType == BuildingType.ATTACK, i).size();
@@ -134,6 +197,23 @@ public class Bot {
             }
         }
         return "";
+    }
+
+    /**
+     * Place building in row y nearest to the 6th row
+     * This is usefull to place attack building
+     *
+     * @param buildingType the building type
+     * @param y            the y
+     * @return the result
+     **/
+    private String placeBuildingInRowFromSixthRow(BuildingType buildingType, int y) {
+      for (int i = gameState.gameDetails.mapWidth / 2 - 3; i >= 0; i--) {
+          if (isCellEmpty(i, y)) {
+              return buildCommand(i, y, buildingType);
+          }
+      }
+      return "";
     }
 
     /**
@@ -258,4 +338,6 @@ public class Bot {
                 .max()
                 .orElse(0);
     }
+
+
 }
