@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>za.co.entelect.challenge</groupId>
-    <artifactId>java-sample-bot</artifactId>
+    <artifactId>reference-bot</artifactId>
     <version>1.1-SNAPSHOT</version>
     <build>
         <finalName>${project.artifactId}</finalName>
