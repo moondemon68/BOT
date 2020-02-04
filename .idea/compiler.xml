@@ -12,6 +12,7 @@
     <bytecodeTargetLevel>
       <module name="java-sample-bot" target="8" />
       <module name="reference-bot" target="8" />
+      <module name="reference-bot (1)" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>
