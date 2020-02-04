@@ -40,6 +40,26 @@ public class Bot {
         Precalculate();
     }
 
+    /**
+     * Precalculate some value
+     *
+     **/
+    private void Precalculate() {
+        for (int i = 0; i < gameState.gameDetails.mapHeight; i++) {
+            energyBuildingsCountAlly.add(i, getAllBuildingsForPlayer(PlayerType.A, b -> b.buildingType == BuildingType.ENERGY, i).size());
+            attackBuildingsCountAlly.add(i, getAllBuildingsForPlayer(PlayerType.A, b -> b.buildingType == BuildingType.ATTACK, i).size());
+            defenseBuildingsCountAlly.add(i, getAllBuildingsForPlayer(PlayerType.A, b -> b.buildingType == BuildingType.DEFENSE, i).size());
+
+            energyBuildingsCountEnemy.add(i, getAllBuildingsForPlayer(PlayerType.B, b -> b.buildingType == BuildingType.ENERGY, i).size());
+            attackBuildingsCountEnemy.add(i, getAllBuildingsForPlayer(PlayerType.B, b -> b.buildingType == BuildingType.ATTACK, i).size());
+            defenseBuildingsCountEnemy.add(i, getAllBuildingsForPlayer(PlayerType.B, b -> b.buildingType == BuildingType.DEFENSE, i).size());
+        }
+    }
+
+    /**
+     * Print debug to debug.txt
+     *
+     **/
     private void debug(String txt) {
         try {
             Files.write(Paths.get("debug.txt"), txt.getBytes(), StandardOpenOption.APPEND);
@@ -55,11 +75,9 @@ public class Bot {
      **/
     public String run() {
         // Debug
-        try {
-            Files.write(Paths.get("debug.txt"), ("").getBytes(), StandardOpenOption.APPEND);
-        } catch (IOException e) {
+        if (gameState.gameDetails.round == 0) {
             try {
-                Files.write(Paths.get("debug.txt"), "Created\n".getBytes());
+              Files.write(Paths.get("debug.txt"), "Created\n\n".getBytes());
             } catch (IOException ee) {
               // pass
             }
@@ -86,14 +104,7 @@ public class Bot {
             totalDefenseCountEnemy += defenseBuildingsCountEnemy.get(i);
         }
 
-        boolean attackCountered = true;
-        for (int i = 0; i < gameState.gameDetails.mapHeight; i++) {
-            if (attackBuildingsCountEnemy.get(i) - attackBuildingsCountAlly.get(i) > 0)
-                attackCountered = false;
-        }
-
         // Energy Building
-        int lowEnergyBuildingCount = 7;
         int idealEnergyPerRow = 2;
         int energyPos = -1; int energyVal = -1;
         for (int i = 0; i < gameState.gameDetails.mapHeight; i++) {
@@ -116,8 +127,9 @@ public class Bot {
         for (int i = 0; i < gameState.gameDetails.mapHeight; i++) {
             int currentValue = 0;
             // Relative to attack building
-            if (attackBuildingsCountEnemy.get(i) > 0 && attackBuildingsCountAlly.get(i) == 0)
+            if (attackBuildingsCountEnemy.get(i) > 0 && attackBuildingsCountAlly.get(i) == 0) {
                 currentValue += 10; needAttack = true;
+            }
             currentValue += Math.max((3) * (attackBuildingsCountEnemy.get(i) - attackBuildingsCountAlly.get(i)), 0);
             // Relative to ally attack
             if (attackBuildingsCountAlly.get(i) == 0)
@@ -160,6 +172,7 @@ public class Bot {
         String command = "";
         debug("Energy: " + Integer.toString(getEnergy(PlayerType.A)) + "\nVerdict: ");
         // Build energy first
+        int lowEnergyBuildingCount = 7;
         if (totalEnergyCountAlly < lowEnergyBuildingCount && canAffordBuilding(BuildingType.ENERGY)) {
             debug("Energy\n");
             command = placeBuildingInRowFromBack(BuildingType.ENERGY, energyPos);
@@ -170,7 +183,8 @@ public class Bot {
             command = placeBuildingInRowFromFront(BuildingType.DEFENSE, defensePos);
         }
         // Build attack
-        if (needAttack && canAffordBuilding(BuildingType.ATTACK)) {
+        int ngegasTurn = 30;
+        if ((needAttack || gameState.gameDetails.round < ngegasTurn) && canAffordBuilding(BuildingType.ATTACK)) {
             debug("Attack\n");
             command = placeBuildingInRowFromBack(BuildingType.ATTACK, 1, attackPos);
         }
@@ -248,7 +262,7 @@ public class Bot {
      * Place building in row y nearest to the back
      *
      * @param buildingType the building type
-     * @param y            the minX
+     * @param minX         the minX
      * @param y            the y
      * @return the result
      **/
@@ -374,37 +388,5 @@ public class Bot {
                 .mapToInt(b -> b.price)
                 .max()
                 .orElse(0);
-    }
-
-    // ---
-    private Building getBuildingInPos(int x, int y) {
-        return gameState.getGameMap().stream()
-                .filter(c -> c.x == x && c.y == y)
-                .flatMap(c -> c.getBuildings().stream())
-                .collect(Collectors.toList())
-                .get(0);
-    }
-
-    private void Precalculate() {
-        for (int i = 0; i < gameState.gameDetails.mapHeight; i++) {
-            energyBuildingsCountAlly.add(i, getAllBuildingsForPlayer(PlayerType.A, b -> b.buildingType == BuildingType.ENERGY, i).size());
-            attackBuildingsCountAlly.add(i, getAllBuildingsForPlayer(PlayerType.A, b -> b.buildingType == BuildingType.ATTACK, i).size());
-            defenseBuildingsCountAlly.add(i, getAllBuildingsForPlayer(PlayerType.A, b -> b.buildingType == BuildingType.DEFENSE, i).size());
-
-            energyBuildingsCountEnemy.add(i, getAllBuildingsForPlayer(PlayerType.B, b -> b.buildingType == BuildingType.ENERGY, i).size());
-            attackBuildingsCountEnemy.add(i, getAllBuildingsForPlayer(PlayerType.B, b -> b.buildingType == BuildingType.ATTACK, i).size());
-            defenseBuildingsCountEnemy.add(i, getAllBuildingsForPlayer(PlayerType.B, b -> b.buildingType == BuildingType.DEFENSE, i).size());
-        }
-    }
-
-    private void printArray(List<Integer> L) {
-        try {
-            for (int el : L) {
-                Files.write(Paths.get("debug.txt"), (Integer.toString(el) + ",").getBytes(), StandardOpenOption.APPEND);
-            }
-            Files.write(Paths.get("debug.txt"), "\n".getBytes(), StandardOpenOption.APPEND);
-        } catch (IOException e) {
-            // Pass
-        }
     }
 }
