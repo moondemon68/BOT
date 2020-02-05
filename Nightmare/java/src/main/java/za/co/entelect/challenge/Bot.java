@@ -40,6 +40,26 @@ public class Bot {
         Precalculate();
     }
 
+    /**
+     * Precalculate some value
+     *
+     **/
+    private void Precalculate() {
+        for (int i = 0; i < gameState.gameDetails.mapHeight; i++) {
+            energyBuildingsCountAlly.add(i, getAllBuildingsForPlayer(PlayerType.A, b -> b.buildingType == BuildingType.ENERGY, i).size());
+            attackBuildingsCountAlly.add(i, getAllBuildingsForPlayer(PlayerType.A, b -> b.buildingType == BuildingType.ATTACK, i).size());
+            defenseBuildingsCountAlly.add(i, getAllBuildingsForPlayer(PlayerType.A, b -> b.buildingType == BuildingType.DEFENSE, i).size());
+
+            energyBuildingsCountEnemy.add(i, getAllBuildingsForPlayer(PlayerType.B, b -> b.buildingType == BuildingType.ENERGY, i).size());
+            attackBuildingsCountEnemy.add(i, getAllBuildingsForPlayer(PlayerType.B, b -> b.buildingType == BuildingType.ATTACK, i).size());
+            defenseBuildingsCountEnemy.add(i, getAllBuildingsForPlayer(PlayerType.B, b -> b.buildingType == BuildingType.DEFENSE, i).size());
+        }
+    }
+
+    /**
+     * Print debug to debug.txt
+     *
+     **/
     private void debug(String txt) {
         try {
             Files.write(Paths.get("debug.txt"), txt.getBytes(), StandardOpenOption.APPEND);
@@ -54,82 +74,138 @@ public class Bot {
      * @return the result
      **/
     public String run() {
-        String command = "";
-
         // Debug
-        try {
-            Files.write(Paths.get("debug.txt"), ("").getBytes(), StandardOpenOption.APPEND);
-        } catch (IOException e) {
+        if (gameState.gameDetails.round == 0) {
             try {
-                Files.write(Paths.get("debug.txt"), "Created\n".getBytes());
+              Files.write(Paths.get("debug.txt"), "Created\n\n".getBytes());
             } catch (IOException ee) {
               // pass
             }
         }
+        debug("Round: " + Integer.toString(gameState.gameDetails.round) + "\n");
 
-        // Energy building
-        // Constants
-        int lowEnergyBuildingCount = 10;
-        int idealEnergyBuildingCountPerRow = 2;
-        int totalEnergyBuildingsCountAlly = 0;
-        for (int i = 0; i < 8; i++)
-            totalEnergyBuildingsCountAlly += energyBuildingsCountAlly.get(i);
-        // Move value
-        int energyPos = -1; int energyVal = 0;
+        // Pre
+        int totalBuildingsCountAlly = 0;
+        int totalBuildingsCountEnemy = 0;
+        int totalEnergyCountAlly = 0;
+        int totalAttackCountAlly = 0;
+        int totalDefenseCountAlly = 0;
+        int totalEnergyCountEnemy = 0;
+        int totalAttackCountEnemy = 0;
+        int totalDefenseCountEnemy = 0;
         for (int i = 0; i < gameState.gameDetails.mapHeight; i++) {
-            int valRelToEn = (1) * (idealEnergyBuildingCountPerRow - energyBuildingsCountAlly.get(i));
-            int valRelToAtDef = (-1) * (attackBuildingsCountEnemy.get(i) - attackBuildingsCountAlly.get(i) + 2 * defenseBuildingsCountAlly.get(i));
-            int currentValue = valRelToEn + valRelToAtDef;
+            totalBuildingsCountAlly += energyBuildingsCountAlly.get(i) + attackBuildingsCountAlly.get(i) + defenseBuildingsCountAlly.get(i);
+            totalBuildingsCountEnemy += energyBuildingsCountEnemy.get(i) + attackBuildingsCountEnemy.get(i) + defenseBuildingsCountEnemy.get(i);
+            totalEnergyCountAlly += energyBuildingsCountAlly.get(i);
+            totalAttackCountAlly += attackBuildingsCountAlly.get(i);
+            totalDefenseCountAlly += defenseBuildingsCountAlly.get(i);
+            totalEnergyCountEnemy += energyBuildingsCountEnemy.get(i);
+            totalAttackCountEnemy += attackBuildingsCountEnemy.get(i);
+            totalDefenseCountEnemy += defenseBuildingsCountEnemy.get(i);
+        }
+
+        // Energy Building
+        int idealEnergyPerRow = 2;
+        int energyPos = -1; int energyVal = -1;
+        for (int i = 0; i < gameState.gameDetails.mapHeight; i++) {
+            int currentValue = 0;
+            // Relative to attack building
+            currentValue += Math.max((5) * (attackBuildingsCountAlly.get(i) - attackBuildingsCountEnemy.get(i)), 0);
+            // Relative to ally energy
+            currentValue += Math.max((5) * (idealEnergyPerRow - energyBuildingsCountAlly.get(i)), 0);
+            // Check
             if (currentValue >= energyVal) {
-                energyPos = i;
                 energyVal = currentValue;
+                energyPos = i;
             }
         }
-        if (totalEnergyBuildingsCountAlly < lowEnergyBuildingCount)
-            energyVal += 20;
         debug("Energy val: " + Integer.toString(energyVal) + "\n");
 
-        // Attack building
-        // Move value
-        int attackPos = -1; int attackVal = 0;
+
+        // Attack Building
+        int attackPos = -1; int attackVal = -1; boolean needAttack = false;
         for (int i = 0; i < gameState.gameDetails.mapHeight; i++) {
-            int valRelToEnemyAt = (10) * attackBuildingsCountEnemy.get(i);
-            int valRelToAllyDef = (3) * defenseBuildingsCountAlly.get(i);
-            int valRelToAllyAt = (-10) * attackBuildingsCountAlly.get(i);
-            int currentValue = valRelToEnemyAt + valRelToAllyDef + valRelToAllyAt;
+            int currentValue = 0;
+            // Relative to attack building
+            if (attackBuildingsCountEnemy.get(i) > 0 && attackBuildingsCountAlly.get(i) == 0) {
+                currentValue += 10; needAttack = true;
+            }
+            currentValue += Math.max((3) * (attackBuildingsCountEnemy.get(i) - attackBuildingsCountAlly.get(i)), 0);
+            // Relative to ally attack
+            if (attackBuildingsCountAlly.get(i) == 0)
+                currentValue += 3;
+            // Relative to ally defense
+            if (defenseBuildingsCountAlly.get(i) > 0)
+                currentValue += 5;
+            // Check
             if (currentValue >= attackVal) {
-                attackPos = i;
                 attackVal = currentValue;
+                attackPos = i;
             }
         }
         debug("Attack val: " + Integer.toString(attackVal) + "\n");
 
-        // Defense building
-        // Move value
-        int defensePos = -1; int defenseVal = 0;
+
+        // Defense Building
+        int defensePos = -1; int defenseVal = -1; boolean needDefense = false;
         for (int i = 0; i < gameState.gameDetails.mapHeight; i++) {
-            int valRelToEnemyAt = (1) * attackBuildingsCountEnemy.get(i);
-            int valRelToAllyBuilding = (2) * (3 - (energyBuildingsCountAlly.get(i) + attackBuildingsCountAlly.get(i) + defenseBuildingsCountAlly.get(i)));
-            int valRelToAllyAt = (5) * attackBuildingsCountAlly.get(i);
-            int currentValue = valRelToEnemyAt + valRelToAllyBuilding + valRelToAllyAt;
+            int currentValue = 0;
+            // Relative to ally attack and defense building
+            if (defenseBuildingsCountAlly.get(i) == 0 && attackBuildingsCountAlly.get(i) > 0)
+                currentValue += 10;
+            else if (defenseBuildingsCountAlly.get(i) == 0)
+                currentValue += 5;
+            // Relative to enemy attack
+            currentValue += (1) * attackBuildingsCountEnemy.get(i);
+            if (defenseBuildingsCountAlly.get(i) == 0 && attackBuildingsCountEnemy.get(i) > 0)
+                needDefense = true;
+            // Check
             if (currentValue >= defenseVal) {
-                defensePos = i;
                 defenseVal = currentValue;
+                defensePos = i;
             }
         }
-        debug("Defense val: " + Integer.toString(defenseVal) + "\n\n");
+        debug("Defense val: " + Integer.toString(defenseVal) + "\n");
+
 
         // Verdict
-        int maxVal = Math.max(energyVal, Math.max(attackVal, defenseVal));
-        if (energyVal == maxVal && canAffordBuilding(BuildingType.ENERGY)) {
-            return placeBuildingInRowFromBack(BuildingType.ENERGY, energyPos);
-        } else if (attackVal == maxVal && canAffordBuilding(BuildingType.ATTACK)) {
-            return placeBuildingInRowFromBack(BuildingType.ATTACK, attackPos);
-        } else if (defenseVal == maxVal && canAffordBuilding(BuildingType.DEFENSE)) {
-            return placeBuildingInRowFromFront(BuildingType.DEFENSE, defensePos);
-        } else {
-            return "";
+        String command = "";
+        debug("Energy: " + Integer.toString(getEnergy(PlayerType.A)) + "\nVerdict: ");
+        // Build energy first
+        int lowEnergyBuildingCount = 7;
+        if (totalEnergyCountAlly < lowEnergyBuildingCount && canAffordBuilding(BuildingType.ENERGY)) {
+            debug("Energy\n");
+            command = placeBuildingInRowFromBack(BuildingType.ENERGY, energyPos);
         }
+        // Build defense
+        if (needDefense && canAffordBuilding(BuildingType.DEFENSE)) {
+            debug("Defense\n");
+            command = placeBuildingInRowFromFront(BuildingType.DEFENSE, defensePos);
+        }
+        // Build attack
+        int ngegasTurn = 30;
+        if ((needAttack || gameState.gameDetails.round < ngegasTurn) && canAffordBuilding(BuildingType.ATTACK)) {
+            debug("Attack\n");
+            command = placeBuildingInRowFromBack(BuildingType.ATTACK, 1, attackPos);
+        }
+        // Random attack or defense on best position
+        if (command == "" && canAffordBuilding(BuildingType.DEFENSE)) {
+            if ((new Random()).nextInt(100) <= 35) {
+                debug("Random Defense\n");
+                command = placeBuildingInRowFromFront(BuildingType.DEFENSE, defensePos);
+                if (command == "")
+                    command = placeBuildingInRowFromBack(BuildingType.ATTACK, 1, attackPos);
+            } else {
+                debug("Random Attack\n");
+                command = placeBuildingInRowFromBack(BuildingType.ATTACK, 1, attackPos);
+                if (command == "")
+                    command = placeBuildingInRowFromFront(BuildingType.DEFENSE, defensePos);
+            }
+        }
+        if (command == "")
+            debug("Nop\n");
+        debug("\n");
+        return command;
     }
 
     /**
@@ -186,11 +262,20 @@ public class Bot {
      * Place building in row y nearest to the back
      *
      * @param buildingType the building type
+     * @param minX         the minX
      * @param y            the y
      * @return the result
      **/
     private String placeBuildingInRowFromBack(BuildingType buildingType, int y) {
         for (int i = 0; i < gameState.gameDetails.mapWidth / 2; i++) {
+            if (isCellEmpty(i, y)) {
+                return buildCommand(i, y, buildingType);
+            }
+        }
+        return "";
+    }
+    private String placeBuildingInRowFromBack(BuildingType buildingType, int minX, int y) {
+        for (int i = minX; i < gameState.gameDetails.mapWidth / 2; i++) {
             if (isCellEmpty(i, y)) {
                 return buildCommand(i, y, buildingType);
             }
@@ -303,37 +388,5 @@ public class Bot {
                 .mapToInt(b -> b.price)
                 .max()
                 .orElse(0);
-    }
-
-    // ---
-    private Building getBuildingInPos(int x, int y) {
-        return gameState.getGameMap().stream()
-                .filter(c -> c.x == x && c.y == y)
-                .flatMap(c -> c.getBuildings().stream())
-                .collect(Collectors.toList())
-                .get(0);
-    }
-
-    private void Precalculate() {
-        for (int i = 0; i < gameState.gameDetails.mapHeight; i++) {
-            energyBuildingsCountAlly.add(i, getAllBuildingsForPlayer(PlayerType.A, b -> b.buildingType == BuildingType.ENERGY, i).size());
-            attackBuildingsCountAlly.add(i, getAllBuildingsForPlayer(PlayerType.A, b -> b.buildingType == BuildingType.ATTACK, i).size());
-            defenseBuildingsCountAlly.add(i, getAllBuildingsForPlayer(PlayerType.A, b -> b.buildingType == BuildingType.DEFENSE, i).size());
-
-            energyBuildingsCountEnemy.add(i, getAllBuildingsForPlayer(PlayerType.B, b -> b.buildingType == BuildingType.ENERGY, i).size());
-            attackBuildingsCountEnemy.add(i, getAllBuildingsForPlayer(PlayerType.B, b -> b.buildingType == BuildingType.ATTACK, i).size());
-            defenseBuildingsCountEnemy.add(i, getAllBuildingsForPlayer(PlayerType.B, b -> b.buildingType == BuildingType.DEFENSE, i).size());
-        }
-    }
-
-    private void printArray(List<Integer> L) {
-        try {
-            for (int el : L) {
-                Files.write(Paths.get("debug.txt"), (Integer.toString(el) + ",").getBytes(), StandardOpenOption.APPEND);
-            }
-            Files.write(Paths.get("debug.txt"), "\n".getBytes(), StandardOpenOption.APPEND);
-        } catch (IOException e) {
-            // Pass
-        }
     }
 }
