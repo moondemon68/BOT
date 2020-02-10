@@ -1,0 +1,535 @@
+Created
+
+Round: 0
+Energy val: 10
+Attack val: 3
+Defense val: 5
+Energy: 20
+Verdict: Energy
+
+Round: 1
+Energy val: 10
+Attack val: 3
+Defense val: 5
+Energy: 5
+Verdict: Nop
+
+Round: 2
+Energy val: 10
+Attack val: 3
+Defense val: 5
+Energy: 13
+Verdict: Nop
+
+Round: 3
+Energy val: 10
+Attack val: 3
+Defense val: 5
+Energy: 21
+Verdict: Energy
+
+Round: 4
+Energy val: 10
+Attack val: 3
+Defense val: 5
+Energy: 9
+Verdict: Nop
+
+Round: 5
+Energy val: 10
+Attack val: 3
+Defense val: 5
+Energy: 20
+Verdict: Energy
+
+Round: 6
+Energy val: 10
+Attack val: 3
+Defense val: 5
+Energy: 11
+Verdict: Nop
+
+Round: 7
+Energy val: 10
+Attack val: 3
+Defense val: 5
+Energy: 25
+Verdict: Energy
+
+Round: 8
+Energy val: 10
+Attack val: 3
+Defense val: 5
+Energy: 19
+Verdict: Nop
+
+Round: 9
+Energy val: 10
+Attack val: 3
+Defense val: 5
+Energy: 36
+Verdict: Energy
+Attack
+
+Round: 10
+Energy val: 10
+Attack val: 3
+Defense val: 10
+Energy: 23
+Verdict: Energy
+
+Round: 11
+Energy val: 10
+Attack val: 16
+Defense val: 10
+Energy: 20
+Verdict: Energy
+
+Round: 12
+Energy val: 10
+Attack val: 16
+Defense val: 10
+Energy: 20
+Verdict: Energy
+
+Round: 13
+Energy val: 10
+Attack val: 16
+Defense val: 10
+Energy: 23
+Verdict: Nop
+
+Round: 14
+Energy val: 10
+Attack val: 16
+Defense val: 10
+Energy: 49
+Verdict: Defense
+Attack
+
+Round: 15
+Energy val: 10
+Attack val: 16
+Defense val: 11
+Energy: 45
+Verdict: Defense
+Attack
+
+Round: 16
+Energy val: 10
+Attack val: 16
+Defense val: 11
+Energy: 41
+Verdict: Defense
+Attack
+
+Round: 17
+Energy val: 10
+Attack val: 3
+Defense val: 12
+Energy: 37
+Verdict: Defense
+Attack
+
+Round: 18
+Energy val: 10
+Attack val: 3
+Defense val: 12
+Energy: 33
+Verdict: Defense
+Attack
+
+Round: 19
+Energy val: 10
+Attack val: 3
+Defense val: 12
+Energy: 29
+Verdict: Nop
+
+Round: 20
+Energy val: 10
+Attack val: 16
+Defense val: 11
+Energy: 52
+Verdict: Energy
+Defense
+Attack
+
+Round: 21
+Energy val: 15
+Attack val: 16
+Defense val: 11
+Energy: 45
+Verdict: Energy
+Defense
+Attack
+
+Round: 22
+Energy val: 15
+Attack val: 3
+Defense val: 11
+Energy: 38
+Verdict: Energy
+Defense
+Attack
+
+Round: 23
+Energy val: 15
+Attack val: 16
+Defense val: 11
+Energy: 31
+Verdict: Energy
+Defense
+Attack
+
+Round: 24
+Energy val: 10
+Attack val: 16
+Defense val: 11
+Energy: 24
+Verdict: Energy
+
+Round: 25
+Energy val: 10
+Attack val: 16
+Defense val: 11
+Energy: 27
+Verdict: Nop
+
+Round: 26
+Energy val: 10
+Attack val: 16
+Defense val: 11
+Energy: 53
+Verdict: Defense
+Attack
+
+Round: 27
+Energy val: 10
+Attack val: 16
+Defense val: 11
+Energy: 49
+Verdict: Defense
+Attack
+
+Round: 28
+Energy val: 10
+Attack val: 16
+Defense val: 11
+Energy: 45
+Verdict: Defense
+Attack
+
+Round: 29
+Energy val: 15
+Attack val: 16
+Defense val: 11
+Energy: 41
+Verdict: Defense
+Attack
+
+Round: 30
+Energy val: 10
+Attack val: 16
+Defense val: 11
+Energy: 37
+Verdict: Defense
+Attack
+
+Round: 31
+Energy val: 10
+Attack val: 16
+Defense val: 11
+Energy: 33
+Verdict: Defense
+Attack
+
+Round: 32
+Energy val: 10
+Attack val: 16
+Defense val: 10
+Energy: 29
+Verdict: Nop
+
+Round: 33
+Energy val: 10
+Attack val: 16
+Defense val: 10
+Energy: 55
+Verdict: Defense
+Attack
+
+Round: 34
+Energy val: 10
+Attack val: 3
+Defense val: 11
+Energy: 51
+Verdict: Defense
+
+Round: 35
+Energy val: 10
+Attack val: 16
+Defense val: 10
+Energy: 47
+Verdict: Defense
+Attack
+
+Round: 36
+Energy val: 10
+Attack val: 5
+Defense val: 11
+Energy: 43
+Verdict: Defense
+
+Round: 37
+Energy val: 10
+Attack val: 5
+Defense val: 11
+Energy: 39
+Verdict: Defense
+
+Round: 38
+Energy val: 10
+Attack val: 21
+Defense val: 5
+Energy: 35
+Verdict: Attack
+
+Round: 39
+Energy val: 10
+Attack val: 5
+Defense val: 5
+Energy: 31
+Verdict: Random Defense
+
+Round: 40
+Energy val: 10
+Attack val: 21
+Defense val: 5
+Energy: 27
+Verdict: Nop
+
+Round: 41
+Energy val: 10
+Attack val: 16
+Defense val: 6
+Energy: 50
+Verdict: Energy
+Defense
+Attack
+
+Round: 42
+Energy val: 10
+Attack val: 21
+Defense val: 11
+Energy: 43
+Verdict: Energy
+Defense
+Attack
+
+Round: 43
+Energy val: 10
+Attack val: 8
+Defense val: 11
+Energy: 36
+Verdict: Energy
+Defense
+
+Round: 44
+Energy val: 10
+Attack val: 8
+Defense val: 5
+Energy: 29
+Verdict: Energy
+
+Round: 45
+Energy val: 10
+Attack val: 8
+Defense val: 5
+Energy: 32
+Verdict: Random Attack
+
+Round: 46
+Energy val: 10
+Attack val: 21
+Defense val: 5
+Energy: 28
+Verdict: Nop
+
+Round: 47
+Energy val: 10
+Attack val: 8
+Defense val: 5
+Energy: 54
+Verdict: Random Attack
+
+Round: 48
+Energy val: 15
+Attack val: 5
+Defense val: 5
+Energy: 50
+Verdict: Random Attack
+
+Round: 49
+Energy val: 15
+Attack val: 5
+Defense val: 5
+Energy: 46
+Verdict: Random Attack
+
+Round: 50
+Energy val: 15
+Attack val: 5
+Defense val: 5
+Energy: 42
+Verdict: Random Attack
+
+Round: 51
+Energy val: 20
+Attack val: 5
+Defense val: 11
+Energy: 38
+Verdict: Defense
+
+Round: 52
+Energy val: 20
+Attack val: 5
+Defense val: 5
+Energy: 34
+Verdict: Random Defense
+
+Round: 53
+Energy val: 20
+Attack val: 8
+Defense val: 5
+Energy: 30
+Verdict: Random Attack
+
+Round: 54
+Energy val: 20
+Attack val: 5
+Defense val: 5
+Energy: 26
+Verdict: Nop
+
+Round: 55
+Energy val: 15
+Attack val: 5
+Defense val: 5
+Energy: 52
+Verdict: Random Defense
+
+Round: 56
+Energy val: 15
+Attack val: 8
+Defense val: 5
+Energy: 48
+Verdict: Random Attack
+
+Round: 57
+Energy val: 15
+Attack val: 5
+Defense val: 5
+Energy: 44
+Verdict: Random Defense
+
+Round: 58
+Energy val: 15
+Attack val: 8
+Defense val: 2
+Energy: 40
+Verdict: Random Defense
+
+Round: 59
+Energy val: 15
+Attack val: 8
+Defense val: 3
+Energy: 36
+Verdict: Random Attack
+
+Round: 60
+Energy val: 15
+Attack val: 5
+Defense val: 3
+Energy: 32
+Verdict: Random Attack
+Nop
+
+Round: 61
+Energy val: 15
+Attack val: 5
+Defense val: 3
+Energy: 58
+Verdict: Random Attack
+
+Round: 62
+Energy val: 15
+Attack val: 5
+Defense val: 3
+Energy: 54
+Verdict: Random Defense
+Nop
+
+Round: 63
+Energy val: 15
+Attack val: 5
+Defense val: 3
+Energy: 80
+Verdict: Random Attack
+Nop
+
+Round: 64
+Energy val: 15
+Attack val: 5
+Defense val: 3
+Energy: 106
+Verdict: Random Defense
+
+Round: 65
+Energy val: 15
+Attack val: 5
+Defense val: 3
+Energy: 102
+Verdict: Random Attack
+Nop
+
+Round: 66
+Energy val: 15
+Attack val: 5
+Defense val: 2
+Energy: 128
+Verdict: Random Attack
+Nop
+
+Round: 67
+Energy val: 15
+Attack val: 5
+Defense val: 2
+Energy: 154
+Verdict: Random Defense
+Nop
+
+Round: 68
+Energy val: 15
+Attack val: 5
+Defense val: 1
+Energy: 180
+Verdict: Random Attack
+Nop
+
+Round: 69
+Energy val: 15
+Attack val: 5
+Defense val: 1
+Energy: 206
+Verdict: Random Defense
+Nop
+
+Round: 70
+Energy val: 20
+Attack val: 5
+Defense val: 0
+Energy: 232
+Verdict: Random Attack
+Nop
+

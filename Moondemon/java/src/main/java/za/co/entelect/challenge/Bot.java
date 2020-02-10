@@ -34,7 +34,7 @@ public class Bot {
     public String run() {
         String command = "";
 
-        // If column 0, row 0 to 5 is not filled with energy, then build them.
+        // If column 0, row 0 to 7 is not filled with energy, then build them. This can be overrided if enemy is building something other than energy.
         if (command == "") {
             int numberOfEnergyBuilding = 0;
             int availableRowToPlaceEnergy = -1;
@@ -50,21 +50,17 @@ public class Bot {
             }
         }
 
-        int ourTotalAttack = 0, enemyTotalAttack = 0, ourTotalDefense = 0, ourTotalEnergy = 0;
+        int ourTotalAttack = 0, enemyTotalAttack = 0, ourTotalDefense = 0, enemyTotalDefense = 0, ourTotalEnergy = 0;
         for (int i = 0; i < gameState.gameDetails.mapHeight; i++) {
             ourTotalAttack += getAllBuildingsForPlayer(PlayerType.A, b -> b.buildingType == BuildingType.ATTACK, i).size();
             enemyTotalAttack += getAllBuildingsForPlayer(PlayerType.B, b -> b.buildingType == BuildingType.ATTACK, i).size();
             ourTotalDefense += getAllBuildingsForPlayer(PlayerType.A, b -> b.buildingType == BuildingType.DEFENSE, i).size();
+            enemyTotalDefense += getAllBuildingsForPlayer(PlayerType.B, b -> b.buildingType == BuildingType.DEFENSE, i).size();
             ourTotalEnergy += getAllBuildingsForPlayer(PlayerType.A, b -> b.buildingType == BuildingType.ENERGY, i).size();
         }
 
-        // If our energy is above 100 and we have plenty energy, deploy iron curtain. This command can be overrided.
-        if (getEnergy(PlayerType.A) >= 100 && ourTotalEnergy >= 16) {
-            command = "5,5,5";
-        }
-
         // Build attack. Prioritize row with more enemy attack. If there is still a draw, prioritize row with less our attack.
-        if (command == "" || enemyTotalAttack > ourTotalAttack) {
+        if (command == "" || enemyTotalAttack > ourTotalAttack || enemyTotalDefense > ourTotalAttack) {
             int minOurAttack = 10, maxEnemyAttack = 0;
             for (int i = 0; i < gameState.gameDetails.mapHeight; i++) {
                 int ourAttack = getAllBuildingsForPlayer(PlayerType.A, b -> b.buildingType == BuildingType.ATTACK, i).size();
@@ -73,7 +69,7 @@ public class Bot {
                 int enemyDefense = getAllBuildingsForPlayer(PlayerType.B, b -> b.buildingType == BuildingType.DEFENSE, i).size();
                 if (true) {
                     if (enemyAttack > maxEnemyAttack) {
-                        minOurAttack = 10;
+                        maxEnemyAttack = enemyAttack;
                     }
                     if (enemyAttack >= maxEnemyAttack) {
                         if (ourAttack < minOurAttack) {
@@ -94,7 +90,7 @@ public class Bot {
                 int enemyAttack = getAllBuildingsForPlayer(PlayerType.B, b -> b.buildingType == BuildingType.ATTACK, i).size();
                 if (enemyAttack - ourAttack >= maxDiff) {
                     maxDiff = enemyAttack - ourAttack;
-                    if (ourDefense == 0) {
+                    if (ourDefense*2 <= enemyAttack - ourAttack) {
                         if (placeBuildingInRowFromFront(BuildingType.DEFENSE, i) != "")
                             command = placeBuildingInRowFromFront(BuildingType.DEFENSE, i);
                     } else {
@@ -126,47 +122,18 @@ public class Bot {
                 int ourEnergy = getAllBuildingsForPlayer(PlayerType.A, b -> b.buildingType == BuildingType.ENERGY, i).size();
                 if (ourEnergy < minOurEnergy) {
                     minOurEnergy = ourEnergy;
-                    command = placeBuildingInRowFromBack(BuildingType.ENERGY, i);
+                    command = placeBuildingInRowFromFront(BuildingType.ENERGY, i);
                     buildingEnergy = 1;
                 }
             }
         }
 
+        // If our energy is above 150 and enemy attack > our attack, deploy iron curtain. This command can be overrided.
+        if (getEnergy(PlayerType.A) >= 150) {
+            command = "5,5,5";
+        }
+
         return command;
-    }
-
-    /**
-     * Place building in a random row nearest to the back
-     *
-     * @param buildingType the building type
-     * @return the result
-     **/
-    private String placeBuildingRandomlyFromBack(BuildingType buildingType) {
-        for (int i = 0; i < gameState.gameDetails.mapWidth / 2; i++) {
-            List<CellStateContainer> listOfFreeCells = getListOfEmptyCellsForColumn(i);
-            if (!listOfFreeCells.isEmpty()) {
-                CellStateContainer pickedCell = listOfFreeCells.get((new Random()).nextInt(listOfFreeCells.size()));
-                return buildCommand(pickedCell.x, pickedCell.y, buildingType);
-            }
-        }
-        return "";
-    }
-
-    /**
-     * Place building in a random row nearest to the front
-     *
-     * @param buildingType the building type
-     * @return the result
-     **/
-    private String placeBuildingRandomlyFromFront(BuildingType buildingType) {
-        for (int i = (gameState.gameDetails.mapWidth / 2) - 1; i >= 0; i--) {
-            List<CellStateContainer> listOfFreeCells = getListOfEmptyCellsForColumn(i);
-            if (!listOfFreeCells.isEmpty()) {
-                CellStateContainer pickedCell = listOfFreeCells.get((new Random()).nextInt(listOfFreeCells.size()));
-                return buildCommand(pickedCell.x, pickedCell.y, buildingType);
-            }
-        }
-        return "";
     }
 
     /**
