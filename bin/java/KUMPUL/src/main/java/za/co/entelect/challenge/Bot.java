@@ -24,6 +24,22 @@ public class Bot {
     public String run() {
         String command = "";
 
+        // If column 0, row 0 to 7 is not filled with energy, then build them. This can be overrided if enemy is building something other than energy.
+        if (command == "") {
+            int numberOfEnergyBuilding = 0;
+            int availableRowToPlaceEnergy = -1;
+            for (int i = 0; i < gameState.gameDetails.mapHeight; i++) {
+                int currentRowEnergy = getAllBuildingsForPlayer(PlayerType.A, b -> b.buildingType == BuildingType.ENERGY, i).size();
+                if (currentRowEnergy == 0) {
+                    availableRowToPlaceEnergy = i;
+                }
+            }
+            if (availableRowToPlaceEnergy != -1) {
+                if (canAffordBuilding(BuildingType.ENERGY))
+                    command = placeBuildingInRowFromBack(BuildingType.ENERGY, availableRowToPlaceEnergy);
+            }
+        }
+
         // Count total number of our and enemy buildings (for each type)
         int ourTotalAttack = 0, enemyTotalAttack = 0, ourTotalDefense = 0, enemyTotalDefense = 0, ourTotalEnergy = 0;
         for (int i = 0; i < gameState.gameDetails.mapHeight; i++) {
@@ -34,81 +50,30 @@ public class Bot {
             ourTotalEnergy += getAllBuildingsForPlayer(PlayerType.A, b -> b.buildingType == BuildingType.ENERGY, i).size();
         }
 
-        if (buildEnergy() != "") command = buildEnergy();
-
-        // If our back column is full and enemy attack or defense is more than our attack, then build attack.
+        // Build attack. Prioritize row with more enemy attack. If there is still a draw, prioritize row with less our attack. This command can be overrided.
         if (command == "" || enemyTotalAttack > ourTotalAttack || enemyTotalDefense > ourTotalAttack) {
-            if (buildAttack() != "") command = buildAttack();
-        }
-        
-        // This function can override the previous attack command. This counters a common enemy strategy, focusing in only one row.
-        if (buildAntiSerialAttack() != "") command = buildAntiSerialAttack();
-        
-        // If we are overwhelming enemy (our attack >= enemy attack + 12)
-        if (ourTotalAttack >= enemyTotalAttack + 12) {
-            // Check the 2 front columns, fill them with defense buildings. Prioritize row with least our defense.
-            // If the defense is full, then build energy.
-            if (ourTotalDefense <= 16) {
-                if (buildDefense() != "") command = buildDefense();
-            } else {
-                if (buildOverwhelmingEnergy(ourTotalEnergy) != "") command = buildOverwhelmingEnergy(ourTotalEnergy);
-            }
-        }
-
-        // If our energy is above 150, deploy iron curtain.
-        if (getEnergy(PlayerType.A) >= 150) {
-            if (buildIronCurtain() != "") command = buildIronCurtain();
-        }
-
-        // Yes, we don't have Tesla. Tesla is for spoiled rich kids.
-
-        return command;
-    }
-
-    // If column 0, row 0 to 7 is not filled with energy, then build them. This can be overrided if enemy is building something other than energy.
-    private String buildEnergy() {
-        String command = "";
-        int numberOfEnergyBuilding = 0;
-        int availableRowToPlaceEnergy = -1;
-        for (int i = 0; i < gameState.gameDetails.mapHeight; i++) {
-            int currentRowEnergy = getAllBuildingsForPlayer(PlayerType.A, b -> b.buildingType == BuildingType.ENERGY, i).size();
-            if (currentRowEnergy == 0) {
-                availableRowToPlaceEnergy = i;
-            }
-        }
-        if (availableRowToPlaceEnergy != -1) {
-            if (canAffordBuilding(BuildingType.ENERGY))
-                command = placeBuildingInRowFromBack(BuildingType.ENERGY, availableRowToPlaceEnergy);
-        }
-        return command;
-    }
-
-    // Build attack. Prioritize row with more enemy attack. If there is still a draw, prioritize row with less our attack. This command can be overrided.
-    private String buildAttack() {
-        String command = "";
-        int minOurAttack = 10, maxEnemyAttack = 0;
-        for (int i = 0; i < gameState.gameDetails.mapHeight; i++) {
-            int ourAttack = getAllBuildingsForPlayer(PlayerType.A, b -> b.buildingType == BuildingType.ATTACK, i).size();
-            int ourDefense = getAllBuildingsForPlayer(PlayerType.A, b -> b.buildingType == BuildingType.DEFENSE, i).size();
-            int enemyAttack = getAllBuildingsForPlayer(PlayerType.B, b -> b.buildingType == BuildingType.ATTACK, i).size();
-            int enemyDefense = getAllBuildingsForPlayer(PlayerType.B, b -> b.buildingType == BuildingType.DEFENSE, i).size();
-            if (enemyAttack > maxEnemyAttack) {
-                maxEnemyAttack = enemyAttack;
-            }
-            if (enemyAttack >= maxEnemyAttack) {
-                if (ourAttack < minOurAttack) {
-                    minOurAttack = ourAttack;
-                    if (placeBuildingInRowFromSixthRow(BuildingType.ATTACK, i) != "") command = placeBuildingInRowFromSixthRow(BuildingType.ATTACK, i);
+            int minOurAttack = 10, maxEnemyAttack = 0;
+            for (int i = 0; i < gameState.gameDetails.mapHeight; i++) {
+                int ourAttack = getAllBuildingsForPlayer(PlayerType.A, b -> b.buildingType == BuildingType.ATTACK, i).size();
+                int ourDefense = getAllBuildingsForPlayer(PlayerType.A, b -> b.buildingType == BuildingType.DEFENSE, i).size();
+                int enemyAttack = getAllBuildingsForPlayer(PlayerType.B, b -> b.buildingType == BuildingType.ATTACK, i).size();
+                int enemyDefense = getAllBuildingsForPlayer(PlayerType.B, b -> b.buildingType == BuildingType.DEFENSE, i).size();
+                if (true) {
+                    if (enemyAttack > maxEnemyAttack) {
+                        maxEnemyAttack = enemyAttack;
+                    }
+                    if (enemyAttack >= maxEnemyAttack) {
+                        if (ourAttack < minOurAttack) {
+                            minOurAttack = ourAttack;
+                            if (placeBuildingInRowFromSixthRow(BuildingType.ATTACK, i) != "") command = placeBuildingInRowFromSixthRow(BuildingType.ATTACK, i);
+                        }
+                    }
                 }
             }
         }
-        return command;
-    }
 
-    // For every row, if our attack + 2 <= their attack, if our defense * 2 is less than the difference, build defense, else build attack. Prioritize row with most difference.
-    private String buildAntiSerialAttack() {
-        String command = "";
-        int maxDiff = 2;    // If the difference is still less than 2, don't do anything.
+        // For every row, if our attack + 2 <= their attack, if our defense * 2 is less than the difference, build defense, else build attack. Prioritize row with most difference (enemyAttack - ourDefense).
+        int maxDiff = 2;
         for (int i = 0; i < gameState.gameDetails.mapHeight; i++) {
             int ourAttack = getAllBuildingsForPlayer(PlayerType.A, b -> b.buildingType == BuildingType.ATTACK, i).size();
             int ourDefense = getAllBuildingsForPlayer(PlayerType.A, b -> b.buildingType == BuildingType.DEFENSE, i).size();
@@ -123,29 +88,22 @@ public class Bot {
                 }
             }
         }
-        return command;
-    }
 
-    private String buildDefense() {
-        String command = "";
-        // If we are overwhelming enemy (attack >= enemy + 12) and our frontline is not full of defenses, build defense. Prioritize row with least our defense.
-        int minOurDefense = 10;
-        for (int i = 0; i < gameState.gameDetails.mapHeight; i++) {
-            int ourDefense = getAllBuildingsForPlayer(PlayerType.A, b -> b.buildingType == BuildingType.DEFENSE, i).size();
-            if (ourDefense < minOurDefense) {
-                minOurDefense = ourDefense;
-                command = placeBuildingInRowFromFront(BuildingType.DEFENSE, i);
+        // If we are overwhelming enemy (attack >= enemy + 8) and our frontline is not full of defenses, build defense. Prioritize row with least our defense.
+        if (ourTotalAttack >= enemyTotalAttack + 12 && ourTotalDefense <= 16) {
+            int minOurDefense = 10;
+            for (int i = 0; i < gameState.gameDetails.mapHeight; i++) {
+                int ourDefense = getAllBuildingsForPlayer(PlayerType.A, b -> b.buildingType == BuildingType.DEFENSE, i).size();
+                if (ourDefense < minOurDefense) {
+                    minOurDefense = ourDefense;
+                    command = placeBuildingInRowFromFront(BuildingType.DEFENSE, i);
+                }
             }
         }
-        return command;
-    }
 
-    private String buildOverwhelmingEnergy(int ourTotalEnergy) {
-        String command = "";
         int buildingEnergy = 0;
-        // If our energy is less than or equal to 16, then build energy. Prioritize row with least energy.
-        // Else, conserve energy.
-        if (ourTotalEnergy <= 16) {
+        // If we are overwhelming, then build an energy. Prioritize row with least energy.
+        if (ourTotalAttack >= enemyTotalAttack + 12 && ourTotalDefense >= 8 && ourTotalEnergy <= 16) {
             int minOurEnergy = 10;
             for (int i = 0; i < gameState.gameDetails.mapHeight; i++) {
                 int ourEnergy = getAllBuildingsForPlayer(PlayerType.A, b -> b.buildingType == BuildingType.ENERGY, i).size();
@@ -156,11 +114,13 @@ public class Bot {
                 }
             }
         }
-        return command;
-    }
 
-    private String buildIronCurtain() {
-        return "5,5,5";
+        // If our energy is above 150 and enemy attack > our attack, deploy iron curtain. This command can be overrided.
+        if (getEnergy(PlayerType.A) >= 150) {
+            command = "5,5,5";
+        }
+
+        return command;
     }
 
     /**
@@ -172,7 +132,7 @@ public class Bot {
      **/
     private String placeBuildingInRowFromFront(BuildingType buildingType, int y) {
         for (int i = (gameState.gameDetails.mapWidth / 2) - 1; i >= 0; i--) {
-            if (isCellEmpty(i, y) && canAffordBuilding(buildingType)) {
+            if (isCellEmpty(i, y)) {
                 return buildCommand(i, y, buildingType);
             }
         }
@@ -189,7 +149,7 @@ public class Bot {
      **/
     private String placeBuildingInRowFromSixthRow(BuildingType buildingType, int y) {
         for (int i = gameState.gameDetails.mapWidth / 2 - 3; i >= 0; i--) {
-            if (isCellEmpty(i, y) && canAffordBuilding(buildingType)) {
+            if (isCellEmpty(i, y)) {
                 return buildCommand(i, y, buildingType);
             }
         }
@@ -205,7 +165,7 @@ public class Bot {
      **/
     private String placeBuildingInRowFromBack(BuildingType buildingType, int y) {
         for (int i = 0; i < gameState.gameDetails.mapWidth / 2; i++) {
-            if (isCellEmpty(i, y) && canAffordBuilding(buildingType)) {
+            if (isCellEmpty(i, y)) {
                 return buildCommand(i, y, buildingType);
             }
         }
