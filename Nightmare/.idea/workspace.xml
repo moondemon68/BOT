@@ -2,7 +2,47 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="104b7248-c305-44bd-a637-a30b3038f2aa" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../Moondemon/java/target/command.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../Moondemon/java/target/command.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Moondemon/java/target/state.json" beforeDir="false" afterPath="$PROJECT_DIR$/../Moondemon/java/target/state.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Moondemon/java/target/textMap.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../Moondemon/java/target/textMap.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/java/KUMPUL/bin/bot.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/java/KUMPUL/bin/target/classes/za/co/entelect/challenge/Bot.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/java/KUMPUL/bin/target/classes/za/co/entelect/challenge/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/java/KUMPUL/bin/target/classes/za/co/entelect/challenge/entities/Building.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/java/KUMPUL/bin/target/classes/za/co/entelect/challenge/entities/BuildingStats.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/java/KUMPUL/bin/target/classes/za/co/entelect/challenge/entities/Cell.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/java/KUMPUL/bin/target/classes/za/co/entelect/challenge/entities/CellStateContainer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/java/KUMPUL/bin/target/classes/za/co/entelect/challenge/entities/GameDetails.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/java/KUMPUL/bin/target/classes/za/co/entelect/challenge/entities/GameState.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/java/KUMPUL/bin/target/classes/za/co/entelect/challenge/entities/Missile.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/java/KUMPUL/bin/target/classes/za/co/entelect/challenge/entities/Player.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/java/KUMPUL/bin/target/classes/za/co/entelect/challenge/enums/BuildingType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/java/KUMPUL/bin/target/classes/za/co/entelect/challenge/enums/Direction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/java/KUMPUL/bin/target/classes/za/co/entelect/challenge/enums/PlayerType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/java/KUMPUL/bin/target/command.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/java/KUMPUL/bin/target/java-sample-bot-jar-with-dependencies.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/java/KUMPUL/bin/target/java-sample-bot.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/java/KUMPUL/bin/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/java/KUMPUL/bin/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/java/KUMPUL/bin/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/java/KUMPUL/bin/target/state.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/java/KUMPUL/bin/target/textMap.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/java/KUMPUL/src/main/java/za/co/entelect/challenge/Bot.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/java/KUMPUL/src/main/java/za/co/entelect/challenge/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/java/KUMPUL/src/main/java/za/co/entelect/challenge/entities/Building.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/java/KUMPUL/src/main/java/za/co/entelect/challenge/entities/BuildingStats.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/java/KUMPUL/src/main/java/za/co/entelect/challenge/entities/Cell.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/java/KUMPUL/src/main/java/za/co/entelect/challenge/entities/CellStateContainer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/java/KUMPUL/src/main/java/za/co/entelect/challenge/entities/GameDetails.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/java/KUMPUL/src/main/java/za/co/entelect/challenge/entities/GameState.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/java/KUMPUL/src/main/java/za/co/entelect/challenge/entities/Missile.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/java/KUMPUL/src/main/java/za/co/entelect/challenge/entities/Player.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/java/KUMPUL/src/main/java/za/co/entelect/challenge/enums/BuildingType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/java/KUMPUL/src/main/java/za/co/entelect/challenge/enums/Direction.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/java/KUMPUL/src/main/java/za/co/entelect/challenge/enums/PlayerType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/java/KUMPUL/src/pom.xml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,7 +70,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Moondemon" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -59,29 +99,30 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="414" y="176" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1580398168788" />
-    <state x="740" y="276" key="FileChooserDialogImpl" timestamp="1580398128965">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="526" y="193" key="FileChooserDialogImpl" timestamp="1581432473286">
+      <screen x="0" y="0" width="1366" height="728" />
     </state>
+    <state x="526" y="193" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1581432473286" />
     <state x="740" y="276" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1580398128965" />
-    <state width="1286" height="163" key="GridCell.Tab.0.bottom" timestamp="1580878740538">
+    <state width="1323" height="178" key="GridCell.Tab.0.bottom" timestamp="1581430899561">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1286" height="163" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1580878740538" />
+    <state width="1323" height="178" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1581430899561" />
     <state width="1877" height="155" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1580545402055" />
-    <state width="1286" height="163" key="GridCell.Tab.0.center" timestamp="1580878740538">
+    <state width="1323" height="178" key="GridCell.Tab.0.center" timestamp="1581430899561">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1286" height="163" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1580878740538" />
+    <state width="1323" height="178" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1581430899561" />
     <state width="1877" height="155" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1580545402055" />
-    <state width="1286" height="163" key="GridCell.Tab.0.left" timestamp="1580878740538">
+    <state width="1323" height="178" key="GridCell.Tab.0.left" timestamp="1581430899561">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1286" height="163" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1580878740538" />
+    <state width="1323" height="178" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1581430899561" />
     <state width="1877" height="155" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1580545402055" />
-    <state width="1286" height="163" key="GridCell.Tab.0.right" timestamp="1580878740538">
+    <state width="1323" height="178" key="GridCell.Tab.0.right" timestamp="1581430899561">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1286" height="163" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1580878740538" />
+    <state width="1323" height="178" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1581430899561" />
     <state width="1877" height="155" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1580545402055" />
     <state x="461" y="163" key="SettingsEditor" timestamp="1580398632665">
       <screen x="0" y="0" width="1920" height="1040" />
