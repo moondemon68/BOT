@@ -50,13 +50,13 @@ public class Bot {
             // If the defense is full, then build energy.
             if (ourTotalDefense <= 16) {
                 if (buildDefense() != "") command = buildDefense();
-            } else {
-                if (buildOverwhelmingEnergy(ourTotalEnergy) != "") command = buildOverwhelmingEnergy(ourTotalEnergy);
+            } else if (ourTotalEnergy <= 16) {
+                if (buildOverwhelmingEnergy() != "") command = buildOverwhelmingEnergy();
             }
         }
 
-        // If our energy is above 150, deploy iron curtain.
-        if (getEnergy(PlayerType.A) >= 150) {
+        // If our energy is above 100, deploy iron curtain.
+        if (getEnergy(PlayerType.A) >= 100) {
             if (buildIronCurtain() != "") command = buildIronCurtain();
         }
 
@@ -140,20 +140,17 @@ public class Bot {
         return command;
     }
 
-    private String buildOverwhelmingEnergy(int ourTotalEnergy) {
+    private String buildOverwhelmingEnergy() {
         String command = "";
         int buildingEnergy = 0;
-        // If our energy is less than or equal to 16, then build energy. Prioritize row with least energy.
-        // Else, conserve energy.
-        if (ourTotalEnergy <= 16) {
-            int minOurEnergy = 10;
-            for (int i = 0; i < gameState.gameDetails.mapHeight; i++) {
-                int ourEnergy = getAllBuildingsForPlayer(PlayerType.A, b -> b.buildingType == BuildingType.ENERGY, i).size();
-                if (ourEnergy < minOurEnergy) {
-                    minOurEnergy = ourEnergy;
-                    command = placeBuildingInRowFromFront(BuildingType.ENERGY, i);
-                    buildingEnergy = 1;
-                }
+        // Prioritize row with least energy.
+        int minOurEnergy = 10;
+        for (int i = 0; i < gameState.gameDetails.mapHeight; i++) {
+            int ourEnergy = getAllBuildingsForPlayer(PlayerType.A, b -> b.buildingType == BuildingType.ENERGY, i).size();
+            if (ourEnergy < minOurEnergy) {
+                minOurEnergy = ourEnergy;
+                command = placeBuildingInRowFromFront(BuildingType.ENERGY, i);
+                buildingEnergy = 1;
             }
         }
         return command;
