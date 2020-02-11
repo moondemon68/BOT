@@ -142,7 +142,6 @@ public class Bot {
 
     private String buildOverwhelmingEnergy() {
         String command = "";
-        int buildingEnergy = 0;
         // Prioritize row with least energy.
         int minOurEnergy = 10;
         for (int i = 0; i < gameState.gameDetails.mapHeight; i++) {
@@ -150,7 +149,6 @@ public class Bot {
             if (ourEnergy < minOurEnergy) {
                 minOurEnergy = ourEnergy;
                 command = placeBuildingInRowFromFront(BuildingType.ENERGY, i);
-                buildingEnergy = 1;
             }
         }
         return command;

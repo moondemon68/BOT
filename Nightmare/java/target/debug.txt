@@ -300,7 +300,7 @@ Energy val: 10
 Attack val: 5
 Defense val: 5
 Energy: 31
-Verdict: Random Defense
+Verdict: Random Attack
 
 Round: 40
 Energy val: 10
@@ -311,225 +311,271 @@ Verdict: Nop
 
 Round: 41
 Energy val: 10
-Attack val: 16
-Defense val: 6
-Energy: 50
-Verdict: Energy
-Defense
-Attack
+Attack val: 8
+Defense val: 5
+Energy: 53
+Verdict: Random Attack
 
 Round: 42
 Energy val: 10
-Attack val: 21
-Defense val: 11
-Energy: 43
-Verdict: Energy
-Defense
-Attack
+Attack val: 5
+Defense val: 5
+Energy: 49
+Verdict: Random Attack
 
 Round: 43
 Energy val: 10
-Attack val: 8
-Defense val: 11
-Energy: 36
-Verdict: Energy
-Defense
+Attack val: 5
+Defense val: 5
+Energy: 45
+Verdict: Random Attack
 
 Round: 44
-Energy val: 10
-Attack val: 8
-Defense val: 5
-Energy: 29
-Verdict: Energy
-
-Round: 45
-Energy val: 10
-Attack val: 8
-Defense val: 5
-Energy: 32
-Verdict: Random Attack
-
-Round: 46
-Energy val: 10
-Attack val: 21
-Defense val: 5
-Energy: 28
-Verdict: Nop
-
-Round: 47
-Energy val: 10
-Attack val: 8
-Defense val: 5
-Energy: 54
-Verdict: Random Attack
-
-Round: 48
 Energy val: 15
 Attack val: 5
 Defense val: 5
-Energy: 50
+Energy: 41
+Verdict: Random Attack
+
+Round: 45
+Energy val: 20
+Attack val: 5
+Defense val: 5
+Energy: 37
+Verdict: Random Attack
+
+Round: 46
+Energy val: 25
+Attack val: 5
+Defense val: 5
+Energy: 33
+Verdict: Random Attack
+
+Round: 47
+Energy val: 25
+Attack val: 8
+Defense val: 5
+Energy: 29
+Verdict: Nop
+
+Round: 48
+Energy val: 20
+Attack val: 8
+Defense val: 5
+Energy: 55
 Verdict: Random Attack
 
 Round: 49
 Energy val: 15
 Attack val: 5
 Defense val: 5
-Energy: 46
+Energy: 51
 Verdict: Random Attack
 
 Round: 50
 Energy val: 15
-Attack val: 5
+Attack val: 8
 Defense val: 5
-Energy: 42
+Energy: 47
 Verdict: Random Attack
 
 Round: 51
-Energy val: 20
-Attack val: 5
-Defense val: 11
-Energy: 38
-Verdict: Defense
-
-Round: 52
-Energy val: 20
-Attack val: 5
-Defense val: 5
-Energy: 34
-Verdict: Random Defense
-
-Round: 53
-Energy val: 20
-Attack val: 8
-Defense val: 5
-Energy: 30
-Verdict: Random Attack
-
-Round: 54
-Energy val: 20
-Attack val: 5
-Defense val: 5
-Energy: 26
-Verdict: Nop
-
-Round: 55
 Energy val: 15
 Attack val: 5
 Defense val: 5
-Energy: 52
+Energy: 43
+Verdict: Random Attack
+
+Round: 52
+Energy val: 15
+Attack val: 8
+Defense val: 5
+Energy: 39
+Verdict: Random Attack
+
+Round: 53
+Energy val: 15
+Attack val: 5
+Defense val: 5
+Energy: 35
 Verdict: Random Defense
+
+Round: 54
+Energy val: 10
+Attack val: 8
+Defense val: 14
+Energy: 31
+Verdict: Defense
+
+Round: 55
+Energy val: 15
+Attack val: 8
+Defense val: 5
+Energy: 27
+Verdict: Nop
 
 Round: 56
 Energy val: 15
 Attack val: 8
-Defense val: 5
-Energy: 48
+Defense val: 10
+Energy: 53
 Verdict: Random Attack
 
 Round: 57
-Energy val: 15
-Attack val: 5
-Defense val: 5
-Energy: 44
-Verdict: Random Defense
+Energy val: 10
+Attack val: 8
+Defense val: 11
+Energy: 49
+Verdict: Defense
 
 Round: 58
-Energy val: 15
+Energy val: 10
 Attack val: 8
-Defense val: 2
-Energy: 40
-Verdict: Random Defense
+Defense val: 5
+Energy: 45
+Verdict: Random Attack
 
 Round: 59
 Energy val: 15
-Attack val: 8
-Defense val: 3
-Energy: 36
+Attack val: 5
+Defense val: 5
+Energy: 41
 Verdict: Random Attack
 
 Round: 60
 Energy val: 15
 Attack val: 5
-Defense val: 3
-Energy: 32
-Verdict: Random Attack
-Nop
+Defense val: 5
+Energy: 37
+Verdict: Random Defense
 
 Round: 61
 Energy val: 15
-Attack val: 5
-Defense val: 3
-Energy: 58
-Verdict: Random Attack
+Attack val: 8
+Defense val: 11
+Energy: 33
+Verdict: Defense
 
 Round: 62
 Energy val: 15
-Attack val: 5
-Defense val: 3
-Energy: 54
-Verdict: Random Defense
-Nop
+Attack val: 8
+Defense val: 1
+Energy: 29
+Verdict: Nop
 
 Round: 63
 Energy val: 15
-Attack val: 5
-Defense val: 3
-Energy: 80
-Verdict: Random Attack
-Nop
+Attack val: 8
+Defense val: 1
+Energy: 55
+Verdict: Random Defense
 
 Round: 64
 Energy val: 15
-Attack val: 5
-Defense val: 3
-Energy: 106
+Attack val: 8
+Defense val: 0
+Energy: 51
 Verdict: Random Defense
 
 Round: 65
 Energy val: 15
-Attack val: 5
-Defense val: 3
-Energy: 102
-Verdict: Random Attack
-Nop
+Attack val: 8
+Defense val: 0
+Energy: 47
+Verdict: Random Defense
 
 Round: 66
 Energy val: 15
-Attack val: 5
-Defense val: 2
-Energy: 128
+Attack val: 8
+Defense val: 0
+Energy: 43
 Verdict: Random Attack
-Nop
 
 Round: 67
 Energy val: 15
 Attack val: 5
-Defense val: 2
-Energy: 154
+Defense val: 0
+Energy: 39
 Verdict: Random Defense
 Nop
 
 Round: 68
 Energy val: 15
 Attack val: 5
-Defense val: 1
-Energy: 180
+Defense val: 0
+Energy: 65
 Verdict: Random Attack
 Nop
 
 Round: 69
 Energy val: 15
 Attack val: 5
-Defense val: 1
-Energy: 206
-Verdict: Random Defense
+Defense val: 0
+Energy: 91
+Verdict: Random Attack
 Nop
 
 Round: 70
-Energy val: 20
+Energy val: 15
 Attack val: 5
 Defense val: 0
-Energy: 232
+Energy: 117
 Verdict: Random Attack
+Nop
+
+Round: 71
+Energy val: 15
+Attack val: 5
+Defense val: 0
+Energy: 143
+Verdict: Random Defense
+Nop
+
+Round: 72
+Energy val: 15
+Attack val: 5
+Defense val: 0
+Energy: 169
+Verdict: Random Defense
+Nop
+
+Round: 73
+Energy val: 15
+Attack val: 5
+Defense val: 0
+Energy: 195
+Verdict: Random Attack
+Nop
+
+Round: 74
+Energy val: 15
+Attack val: 5
+Defense val: 0
+Energy: 221
+Verdict: Random Attack
+Nop
+
+Round: 75
+Energy val: 15
+Attack val: 5
+Defense val: 0
+Energy: 247
+Verdict: Random Attack
+Nop
+
+Round: 76
+Energy val: 15
+Attack val: 5
+Defense val: 0
+Energy: 273
+Verdict: Random Defense
+Nop
+
+Round: 77
+Energy val: 15
+Attack val: 5
+Defense val: 0
+Energy: 299
+Verdict: Random Defense
 Nop
 
