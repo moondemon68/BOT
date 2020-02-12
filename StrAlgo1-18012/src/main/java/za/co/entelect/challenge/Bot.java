@@ -93,6 +93,7 @@ public class Bot {
             int enemyAttack = getAllBuildingsForPlayer(PlayerType.B, b -> b.buildingType == BuildingType.ATTACK, i).size();
             int enemyDefense = getAllBuildingsForPlayer(PlayerType.B, b -> b.buildingType == BuildingType.DEFENSE, i).size();
             if (enemyAttack > maxEnemyAttack) {
+                minOurAttack = ourAttack;
                 maxEnemyAttack = enemyAttack;
             }
             if (enemyAttack >= maxEnemyAttack) {

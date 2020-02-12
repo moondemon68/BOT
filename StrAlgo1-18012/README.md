@@ -9,11 +9,12 @@ Kelompok Mrs. ADTDee:
 
 ## How to compile?
 1. Pastikan anda memiliki starter-pack dari repository utama entelect challenge. Link: https://github.com/EntelectChallenge/2018-TowerDefence/releases/download/v3.0.2/starter-pack-3-0-2.zip
-2. Copy semua file dan folder yang ada pada folder 'src'.
-3. Paste dan replace semua file yang ada pada folder starter-pack-3-0-2\starter-pack\starter-bots\java\src\main\java\za\co\entelect\challenge
+2. Copy folder 'main' yang ada pada folder 'src'.
+3. Paste dan replace folder 'main' yang ada pada folder starter-pack-3-0-2\starter-pack\starter-bots\java\src\
 3. Buka intelliJ, tambahkan starter-pack-3-0-2\starter-pack\starter-bots\java sebagai project maven baru, right click pada pom.xml dan lakukan install.
 
 ## How to run the bot
+Ambil .jar yang ada di folder 'bin', letakkan di dalam folder 'target' starter pack. Ubah botFileName menjadi 'bot-mrsADTDee.jar'.
 ### Windows
 1. Ubah game-runner-config.json yang ada di dalam starter-pack. Ubah bagian player-a dan player-b sesuai dengan path dimana bot.json berada.
 2. Jalankan run.bat

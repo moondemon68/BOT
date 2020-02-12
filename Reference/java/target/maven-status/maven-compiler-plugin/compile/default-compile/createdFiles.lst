@@ -1,0 +1,13 @@
+za\co\entelect\challenge\entities\BuildingStats.class
+za\co\entelect\challenge\entities\GameDetails.class
+za\co\entelect\challenge\enums\BuildingType.class
+za\co\entelect\challenge\enums\Direction.class
+za\co\entelect\challenge\Bot.class
+za\co\entelect\challenge\entities\Missile.class
+za\co\entelect\challenge\entities\Cell.class
+za\co\entelect\challenge\entities\CellStateContainer.class
+za\co\entelect\challenge\entities\Building.class
+za\co\entelect\challenge\entities\GameState.class
+za\co\entelect\challenge\enums\PlayerType.class
+za\co\entelect\challenge\entities\Player.class
+za\co\entelect\challenge\Main.class
